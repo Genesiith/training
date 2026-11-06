@@ -486,6 +486,21 @@ body.typing{padding-bottom:calc(var(--safe-b) + 24px)}
   *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
 }
 
+/* supersets */
+.plan li.ss .n{color:var(--ice)}
+.plan li.ss:not(.ssf) button{box-shadow:none}
+.plan li.ss button{position:relative}
+.plan li.ss button::before{content:"";position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--ice-wash2)}
+.plan li.ssf button::before{top:14px;border-radius:2px 2px 0 0}
+.plan li.ssl button::before{bottom:14px;border-radius:0 0 2px 2px}
+.sslbl{display:flex;align-items:center;gap:8px;margin:16px 4px 8px;font-size:13px;color:var(--ink3);line-height:1.3}
+.sslbl span{flex-shrink:0;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ice);background:var(--ice-wash);padding:4px 9px;border-radius:999px}
+.card.ss{border-left:2px solid rgba(140,196,255,.35)}
+.card.ss .cnum{color:var(--ice)}
+.card.ssf:not(.ssl){margin-bottom:4px;border-bottom-left-radius:var(--r-md);border-bottom-right-radius:var(--r-md)}
+.card.ssl:not(.ssf){border-top-left-radius:var(--r-md);border-top-right-radius:var(--r-md)}
+.card.ss:not(.ssf):not(.ssl){margin-bottom:4px;border-radius:var(--r-md)}
+
 </style>
 </head>
 <body data-view="home">
@@ -579,38 +594,55 @@ const I = {
 
 /* ───────────── le programme ───────────── */
 const P = {
-  upperA: { label: 'Upper A', sub: 'Poussée horizontale, tirage vertical', ex: [
+  upperA: { label: 'Upper A', sub: 'Poussée horizontale, tirage vertical', min: 40, ex: [
     { n: 'Développé incliné haltères', s: 3, r: [6, 10], rpe: [7, 8, 9], inc: 2, wu: 1 },
     { n: 'Tirage vertical prise large', s: 3, r: [8, 12], rpe: [7, 8, 9], inc: 2.5 },
-    { n: 'Développé militaire machine', s: 3, r: [8, 12], rpe: [8, 8, 9], inc: 2.5 },
-    { n: 'Rowing machine prise large', s: 3, r: [8, 12], rpe: [8, 8, 9], inc: 2.5 },
+    { n: 'Développé militaire machine', s: 3, r: [8, 12], rpe: [8, 8, 9], inc: 2.5, ss: 1, rest: 90 },
+    { n: 'Rowing machine prise large', s: 3, r: [8, 12], rpe: [8, 8, 9], inc: 2.5, ss: 1, rest: 90 },
     { n: 'Élévations latérales poulie', s: 3, r: [12, 15], rpe: [9, 9, 10], inc: 1.25 },
-    { n: 'Curl pupitre machine', s: 3, r: [8, 12], rpe: [9, 9, 10], inc: 1.25 },
-    { n: 'Triceps poulie barre', s: 2, r: [10, 12], rpe: [9, 10], inc: 1.25 }] },
-  lowerA: { label: 'Lower A', sub: 'Dominante quadriceps', ex: [
+    { n: 'Curl pupitre machine', s: 3, r: [8, 12], rpe: [9, 9, 10], inc: 1.25, ss: 2, rest: 60 },
+    { n: 'Triceps poulie barre', s: 2, r: [10, 12], rpe: [9, 10], inc: 1.25, ss: 2, rest: 60 }] },
+  lowerA: { label: 'Lower A', sub: 'Dominante quadriceps', min: 35, ex: [
     { n: 'Pendulum squat', s: 3, r: [6, 10], rpe: [7, 8, 9], inc: 2.5, wu: 1 },
-    { n: 'Leg curl assis', s: 3, r: [8, 12], rpe: [8, 8, 9], inc: 2.5 },
-    { n: 'Leg extension', s: 3, r: [10, 15], rpe: [8, 9, 10], inc: 2.5 },
-    { n: 'Abducteurs', s: 2, r: [12, 15], rpe: [9, 10], inc: 2.5 },
-    { n: 'Mollets debout', s: 4, r: [8, 12], rpe: [9, 9, 10, 10], inc: 2.5 },
-    { n: 'Abdos machine', s: 3, r: [10, 15], rpe: [8, 9, 9], inc: 1.25 }] },
-  upperB: { label: 'Upper B', sub: 'Poussée verticale, tirage horizontal', ex: [
+    { n: 'Leg extension', s: 3, r: [10, 15], rpe: [8, 9, 10], inc: 2.5, ss: 1, rest: 90 },
+    { n: 'Leg curl assis', s: 3, r: [8, 12], rpe: [8, 8, 9], inc: 2.5, ss: 1, rest: 90 },
+    { n: 'Mollets debout', s: 4, r: [8, 12], rpe: [9, 9, 10, 10], inc: 2.5, ss: 2, rest: 60 },
+    { n: 'Abdos machine', s: 3, r: [10, 15], rpe: [8, 9, 9], inc: 1.25, ss: 2, rest: 60 }] },
+  upperB: { label: 'Upper B', sub: 'Poussée verticale, tirage horizontal', min: 40, ex: [
     { n: 'Développé Smith plat', s: 3, r: [6, 10], rpe: [7, 8, 9], inc: 2.5, wu: 1 },
     { n: 'Rowing barre Smith', s: 3, r: [8, 12], rpe: [7, 8, 9], inc: 2.5 },
-    { n: 'Machine dips', s: 3, r: [8, 12], rpe: [8, 8, 9], inc: 2.5 },
-    { n: 'Pull-over machine', s: 3, r: [10, 12], rpe: [8, 9, 9], inc: 2.5 },
-    { n: 'Élévations latérales haltères', s: 3, r: [10, 15], rpe: [9, 9, 10], inc: 2 },
-    { n: 'Reverse pec deck', s: 3, r: [12, 20], rpe: [9, 9, 10], inc: 1.25 },
-    { n: 'Curl marteau', s: 3, r: [8, 12], rpe: [9, 9, 10], inc: 2 },
-    { n: 'Triceps derrière la tête', s: 2, r: [10, 12], rpe: [9, 10], inc: 1.25 }] },
-  lowerB: { label: 'Lower B', sub: 'Dominante ischios et hanche', ex: [
+    { n: 'Machine dips', s: 3, r: [8, 12], rpe: [8, 8, 9], inc: 2.5, ss: 1, rest: 90 },
+    { n: 'Pull-over machine', s: 3, r: [10, 12], rpe: [8, 9, 9], inc: 2.5, ss: 1, rest: 90 },
+    { n: 'Élévations latérales haltères', s: 3, r: [10, 15], rpe: [9, 9, 10], inc: 2, ss: 2, rest: 60 },
+    { n: 'Reverse pec deck', s: 3, r: [12, 20], rpe: [9, 9, 10], inc: 1.25, ss: 2, rest: 60 },
+    { n: 'Curl marteau', s: 3, r: [8, 12], rpe: [9, 9, 10], inc: 2, ss: 3, rest: 60 },
+    { n: 'Triceps derrière la tête', s: 2, r: [10, 12], rpe: [9, 10], inc: 1.25, ss: 3, rest: 60 }] },
+  lowerB: { label: 'Lower B', sub: 'Dominante ischios et hanche', min: 35, ex: [
     { n: 'RDL haltères', s: 3, r: [8, 12], rpe: [7, 8, 8], inc: 2, wu: 1 },
     { n: 'Presse à cuisses', s: 3, r: [8, 12], rpe: [8, 8, 9], inc: 5 },
     { n: 'Leg curl allongé', s: 3, r: [8, 12], rpe: [8, 9, 10], inc: 2.5 },
-    { n: 'Adducteurs', s: 2, r: [12, 15], rpe: [9, 10], inc: 2.5 },
-    { n: 'Mollets assis', s: 4, r: [10, 15], rpe: [9, 9, 10, 10], inc: 2.5 },
-    { n: 'Abdos poulie', s: 3, r: [12, 15], rpe: [8, 9, 9], inc: 1.25 }] }
+    { n: 'Mollets assis', s: 4, r: [10, 15], rpe: [9, 9, 10, 10], inc: 2.5, ss: 1, rest: 60 },
+    { n: 'Abdos poulie', s: 3, r: [12, 15], rpe: [8, 9, 9], inc: 1.25, ss: 1, rest: 60 }] }
 };
+/* Ordre de l'ancien carnet (avant les supersets) : sert à relire un brouillon de la première version. */
+const V1ORDER = {
+  upperA: ['Développé incliné haltères', 'Tirage vertical prise large', 'Développé militaire machine', 'Rowing machine prise large', 'Élévations latérales poulie', 'Curl pupitre machine', 'Triceps poulie barre'],
+  lowerA: ['Pendulum squat', 'Leg curl assis', 'Leg extension', 'Abducteurs', 'Mollets debout', 'Abdos machine'],
+  upperB: ['Développé Smith plat', 'Rowing barre Smith', 'Machine dips', 'Pull-over machine', 'Élévations latérales haltères', 'Reverse pec deck', 'Curl marteau', 'Triceps derrière la tête'],
+  lowerB: ['RDL haltères', 'Presse à cuisses', 'Leg curl allongé', 'Adducteurs', 'Mollets assis', 'Abdos poulie'] };
+const PROG_SINCE = '2026-11-06';
+/* Numéro affiché : 1, 2, 3a, 3b… (les deux exercices d'un superset partagent le même numéro). */
+function slots(k) {
+  const ex = P[k].ex, out = []; let n = 0;
+  ex.forEach((e, i) => {
+    if (e.ss && i > 0 && ex[i - 1].ss === e.ss) { const l = out[i - 1]; out.push({ no: l.no, ch: String.fromCharCode(l.ch.charCodeAt(0) + 1), first: false }); }
+    else { n++; out.push({ no: n, ch: e.ss ? 'a' : '', first: true }); }
+  });
+  ex.forEach((e, i) => { out[i].last = !e.ss || !ex[i + 1] || ex[i + 1].ss !== e.ss; out[i].lbl = out[i].no + out[i].ch; });
+  return out;
+}
+const ssMates = (k, c) => { const ex = P[k].ex, g = ex[c] && ex[c].ss; return g ? ex.map((e, i) => e.ss === g ? i : -1).filter(i => i >= 0) : [c]; };
+const restTxt = sec => sec >= 90 ? '1' + NB + 'min' + NB + '30' : '1' + NB + 'min';
 const ORDER = ['upperA', 'lowerA', 'upperB', 'lowerB'];
 const SHORT = { upperA: 'UA', lowerA: 'LA', upperB: 'UB', lowerB: 'LB' };
 const CYCLE10 = ['upperA', 'lowerA', 'upperB', 'lowerB', 'upperA', 'lowerA', 'upperB', 'lowerB', 'upperA', 'lowerA'];
@@ -634,12 +666,12 @@ const MUSCLE = {
   'Curl marteau': { biceps: 1, forearms: .5 },
   'Triceps poulie barre': { triceps: 1 },
   'Triceps derrière la tête': { triceps: 1 },
-  'Pendulum squat': { quads: 1, glutes: .6 },
-  'Presse à cuisses': { quads: 1, glutes: .6 },
+  'Pendulum squat': { quads: 1, glutes: .6, adductors: .5 },
+  'Presse à cuisses': { quads: 1, glutes: .6, adductors: .4 },
   'Leg extension': { quads: 1 },
   'Leg curl assis': { hams: 1 },
   'Leg curl allongé': { hams: 1 },
-  'RDL haltères': { hams: 1, glutes: .7, lowback: .5 },
+  'RDL haltères': { hams: 1, glutes: .7, lowback: .5, adductors: .4 },
   'Abducteurs': { glutes: .8 },
   'Adducteurs': { adductors: 1 },
   'Mollets debout': { calves: 1 },
@@ -827,13 +859,13 @@ function fromOldDraft(od) {
   const a = newAct(od.k);
   let any = false;
   Object.keys(od.v).forEach(key => {
-    const p = key.split(':'), ex = P[od.k].ex[+p[0]];
+    const p = key.split(':'), ex = { n: V1ORDER[od.k][+p[0]] };
     if (!ex || !a.sets[ex.n] || !a.sets[ex.n][+p[1]]) return;
     const v = String(od.v[key]);
     if (p[2] === 'kg') { a.sets[ex.n][+p[1]].kg = v; a.sets[ex.n][+p[1]].kt = true; }
     if (p[2] === 'reps' && v.trim()) { a.sets[ex.n][+p[1]].reps = v; any = true; }
   });
-  if (od.t) Object.keys(od.t).forEach(key => { if (!od.t[key]) return; const p = key.split(':'), ex = P[od.k].ex[+p[0]]; if (ex && a.sets[ex.n] && a.sets[ex.n][+p[1]]) a.sets[ex.n][+p[1]].done = !!setVal(a.sets[ex.n][+p[1]]); });
+  if (od.t) Object.keys(od.t).forEach(key => { if (!od.t[key]) return; const p = key.split(':'), ex = { n: V1ORDER[od.k][+p[0]] }; if (ex.n && a.sets[ex.n] && a.sets[ex.n][+p[1]]) a.sets[ex.n][+p[1]].done = !!setVal(a.sets[ex.n][+p[1]]); });
   return any ? a : null;
 }
 
@@ -870,7 +902,7 @@ function sessionsByDay() { const m = {}; DB.sessions.forEach(s => { const k = ym
 const tonnage = s => Object.values(s.e).reduce((a, sets) => a + sets.reduce((b, x) => b + x.kg * x.reps, 0), 0);
 const nSets = s => Object.values(s.e).reduce((a, sets) => a + sets.length, 0);
 function durOf(s) { if (!s.start) return null; const m = Math.round((new Date(s.d) - new Date(s.start)) / 60000); return m >= 5 && m <= 240 ? m : null; }
-function avgDur(k) { const xs = DB.sessions.filter(s => s.k === k).map(durOf).filter(x => x !== null).slice(-5); const m = median(xs); return m ? Math.round(m / 5) * 5 : null; }
+function avgDur(k) { const xs = DB.sessions.filter(s => s.k === k && String(s.d || '') >= PROG_SINCE).map(durOf).filter(x => x !== null).slice(-5); const m = xs.length >= 2 ? median(xs) : null; return m ? Math.round(m / 5) * 5 : (P[k].min || null); }
 function orderedIds(s) { const ids = P[s.k].ex.map(e => e.n).filter(id => s.e[id]); Object.keys(s.e).forEach(id => { if (ids.indexOf(id) < 0) ids.push(id); }); return ids; }
 function stagnation(id) {
   const h = histOf(id).filter(x => !x.dl); if (h.length < 4) return false;
@@ -1128,11 +1160,12 @@ function viewHome() {
       '<p class="hsub">' + esc(tpl.sub) + (dur ? ', environ ' + dur + NB + 'min' : '') + '</p>' +
       (dl.on ? '<p class="hnote">Décharge : encore ' + plural(dl.left, 'séance') + ' à RPE 7</p>' : '') + '</section>';
     h += '<button class="btn go" data-a="start" data-k="' + k + '">Commencer la séance</button>';
+    const sl = slots(k);
     h += sh('Au programme') + '<ol class="plan panel">' + tpl.ex.map((ex, i) => {
       const p = plans[i];
       const w = p.bump ? '<span class="w up">' + I.up + kgs(p.bump.to) + '</span>' : (p.kg[0] != null ? '<span class="w">' + kgs(p.kg[0]) + '</span>' : '<span class="w muted">à trouver</span>');
-      return '<li><button data-a="exsheet" data-id="' + esc(ex.n) + '"><span class="n">' + (i + 1) + '</span><span class="nm">' + esc(nameOf(ex.n)) + '</span>' + w + '</button></li>';
-    }).join('') + '</ol>';
+      return '<li' + (ex.ss ? ' class="ss' + (sl[i].first ? ' ssf' : '') + (sl[i].last ? ' ssl' : '') + '"' : '') + '><button data-a="exsheet" data-id="' + esc(ex.n) + '"><span class="n">' + sl[i].lbl + '</span><span class="nm">' + esc(nameOf(ex.n)) + '</span>' + w + '</button></li>';
+    }).join('') + '</ol>' + (tpl.ex.some(e => e.ss) ? '<p class="hint">Les exercices <b>a</b> et <b>b</b> se font en superset : enchaîne-les sans pause, puis repos.</p>' : '');
   }
   UI.intro = false;
   const cur = ACT ? ACT.k : nextKey();
@@ -1226,8 +1259,11 @@ function cardSub(c) {
 function cardHTML(c) {
   const ex = P[ACT.k].ex[c], id = ex.n, arr = ACT.sets[id], open = ACT.open === id;
   const complete = arr.length > 0 && arr.every(s => s.done);
-  let h = '<section class="card' + (open ? ' open' : '') + (complete ? ' complete' : '') + '" id="c' + c + '"><div class="chead">' +
-    '<button class="ctog" data-a="toggle" data-c="' + c + '" aria-expanded="' + open + '"><span class="cnum">' + (c + 1) + '</span>' +
+  const sl = slots(ACT.k)[c];
+  let h = '';
+  if (ex.ss && sl.first) h += '<p class="sslbl"><span>Superset</span>Enchaîne sans pause, puis ' + restTxt(ex.rest) + ' de repos</p>';
+  h += '<section class="card' + (open ? ' open' : '') + (complete ? ' complete' : '') + (ex.ss ? ' ss' + (sl.first ? ' ssf' : '') + (sl.last ? ' ssl' : '') : '') + '" id="c' + c + '"><div class="chead">' +
+    '<button class="ctog" data-a="toggle" data-c="' + c + '" aria-expanded="' + open + '"><span class="cnum">' + sl.lbl + '</span>' +
     '<span class="cname">' + esc(nameOf(id)) + '<small id="cs' + c + '"' + (cardSub(c).indexOf('Monte à') === 0 ? ' class="up"' : '') + '>' + esc(cardSub(c)) + '</small></span><span class="pips" id="cd' + c + '" aria-hidden="true">' + pips(arr) + '</span></button>' +
     '<button class="ibtn ced" data-a="rename" data-c="' + c + '" aria-label="Changer d’exercice">' + I.edit + '</button></div>';
   if (open) h += '<div class="cbody">' + cardBody(c) + '</div>';
@@ -1375,14 +1411,30 @@ function toggleDone(c, i) {
   const row = $('#r' + c + '_' + i);
   if (row && !REDUCED) { row.classList.remove('flash'); void row.offsetWidth; row.classList.add('flash'); }
   if (pr) toast('Record sur ' + nameOf(id));
+  const mates = ssMates(ACT.k, c);
+  if (mates.length > 1) {
+    const exs = P[ACT.k].ex, pos = mates.indexOf(c);
+    for (let k = 1; k <= mates.length; k++) {
+      const j = mates[(pos + k) % mates.length];
+      if ((ACT.sets[exs[j].n] || []).some(x => !x.done)) { if (j !== c) setTimeout(() => switchTo(c, j), 450); return; }
+    }
+  }
   if (arr.every(x => x.done)) setTimeout(() => advance(c), 450);
+}
+function switchTo(c, j) {
+  if (!ACT || UI.view !== 'log') return;
+  const exs = P[ACT.k].ex; if (!exs[c] || ACT.open !== exs[c].n || !exs[j]) return;
+  if (document.activeElement && document.activeElement.dataset && document.activeElement.dataset.f) return;
+  ACT.open = exs[j].n; saveAct(); render(); scrollToEl(ssMates(ACT.k, j)[0] === j ? '#c' + j : '#c' + ssMates(ACT.k, j)[0]);
+  toast('Superset : ' + nameOf(exs[j].n));
 }
 function advance(c) {
   if (!ACT || UI.view !== 'log') return;
   const exs = P[ACT.k].ex; if (!exs[c] || ACT.open !== exs[c].n) return;
   if (document.activeElement && document.activeElement.dataset && document.activeElement.dataset.f) return;
   let next = null;
-  for (let k = 1; k < exs.length; k++) { const j = (c + k) % exs.length; if ((ACT.sets[exs[j].n] || []).some(s => !s.done)) { next = j; break; } }
+  const grp = ssMates(ACT.k, c);
+  for (let k = 1; k < exs.length; k++) { const j = (c + k) % exs.length; if (grp.indexOf(j) >= 0 && (ACT.sets[exs[j].n] || []).every(s => s.done)) continue; if ((ACT.sets[exs[j].n] || []).some(s => !s.done)) { next = j; break; } }
   ACT.open = next === null ? null : exs[next].n; saveAct(); render();
   if (next !== null) scrollToEl('#c' + next); else scrollToEl('.logend');
 }
@@ -1702,7 +1754,7 @@ function bindCharts(root) {
 /* ───────────── réglages ───────────── */
 function viewSet() {
   const last = DB.backupAt, size = Math.max(1, Math.round(JSON.stringify(DB).length / 1024)), dl = deload();
-  let h = top('Réglages', 'Carnet 3.0');
+  let h = top('Réglages', 'Carnet 3.1');
   h += sh('Sauvegarde') + '<p class="hint first">' + (last ? 'Dernière sauvegarde le <b>' + fr(last, { day: 'numeric', month: 'long', year: 'numeric' }) + '</b>.' : 'Aucune sauvegarde pour l’instant.') + ' Un fichier de sauvegarde garde tout ton historique, même si tu changes de téléphone.</p>' +
     '<button class="btn" data-a="export">Exporter un fichier de sauvegarde</button>' +
     '<div class="btns2"><button class="btn ghost" data-a="import">Importer</button><button class="btn ghost" data-a="textio">Copier ou coller</button></div>';
