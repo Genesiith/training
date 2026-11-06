@@ -1,7 +1,7 @@
 /* Carnet : fonctionnement hors ligne.
    La page est servie depuis le réseau quand il répond vite (pour recevoir
    les mises à jour), sinon depuis la copie locale. */
-const CACHE = 'carnet-3.1';
+const CACHE = 'carnet-3.3';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', event => {
